@@ -6,14 +6,17 @@ Source: JHU
 Data update: Following query in BigQuery
 
 ```
-SELECT
+CREATE OR REPLACE TABLE `tmp.US-Covid-Cases-2023`
+AS
+SELECT 
     province_state,
     fips,
     date,
     confirmed,
-    deaths
+    deaths 
 FROM `bigquery-public-data.covid19_jhu_csse.summary`
-WHERE country_region = 'US'
+WHERE country_region = 'US' and EXTRACT(year from date) = 2023
+ORDER BY date, province_state, fips
 ```
 
 ### us_state_vaccinations.csv
